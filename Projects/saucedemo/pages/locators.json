@@ -1,0 +1,54 @@
+{
+    "loginPage": {
+      "usernameField": "#user-name",
+      "passwordField": "#password",
+      "loginButton": "#login-button",
+      "errorMessage": "[data-test='error']"
+    },
+    "inventoryPage": {
+      "productList": ".inventory_item",
+      "addToCartButton": "button.btn_inventory",
+      "removeFromCartButton": "button.btn_secondary",
+      "shoppingCartIcon": ".shopping_cart_link",
+      "sortDropdown": "select.product_sort_container",
+      "inventoryItemNames": ".inventory_item_name",
+      "inventoryItemDescriptions": ".inventory_item_desc",
+      "inventoryItemPrices": ".inventory_item_price"
+    },
+    "cartPage": {
+      "cartItems": ".cart_item",
+      "removeItemButton": "button.cart_button",
+      "checkoutButton": "#checkout",
+      "continueShoppingButton": "#continue-shopping",
+      "cartTitle": "[data-test='title']"
+    },
+    "checkoutPage": {
+      "firstNameField": "#first-name",
+      "lastNameField": "#last-name",
+      "postalCodeField": "#postal-code",
+      "continueButton": "#continue",
+      "cancelButton": "#cancel",
+      "checkoutTitle": "[data-test='title']"
+    },
+    "checkoutOverviewPage": {
+      "itemTotalLabel": ".summary_subtotal_label",
+      "taxLabel": ".summary_tax_label",
+      "totalPriceLabel": ".summary_total_label",
+      "finishButton": "#finish",
+      "cancelButton": "#cancel",
+      "overviewTitle": "[data-test='title']"
+    },
+    "checkoutCompletePage": {
+      "successMessage": ".complete-header",
+      "backHomeButton": "#back-to-products"
+    },
+    "menu": {
+      "menuButton": "#react-burger-menu-btn",
+      "allItemsLink": "#inventory_sidebar_link",
+      "aboutLink": "#about_sidebar_link",
+      "logoutLink": "#logout_sidebar_link",
+      "resetAppStateLink": "#reset_sidebar_link",
+      "closeMenuButton": "#react-burger-cross-btn"
+    }
+  }
+  

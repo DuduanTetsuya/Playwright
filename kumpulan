@@ -1,0 +1,5 @@
+//get random value from array: const selectedNames = productNames.sort(() => 0.5 - Math.random()).slice(0, numItems);
+//get random value between 2 nums: const rndInt = Math.floor(Math.random() * 6) + 1;
+//assert price sort: const prices = productPrices.map(price => parseFloat(price.replace('$', ''))); return prices.slice().sort((a, b) => a - b).join() === prices.join();
+//assert name sort: return productNames.slice().sort().reverse().join() === productNames.join();
+
