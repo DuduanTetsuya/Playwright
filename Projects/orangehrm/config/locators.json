@@ -1,0 +1,44 @@
+{
+    "general":{
+      "pageTitle": ".oxd-topbar-header-breadcrumb-module",
+      "inputBox": ".oxd-input",
+      "autoInputBox": "input[placeholder='Type for hints...']",
+      "autoDropDown": ".oxd-autocomplete-option",
+      "dropdownOption": ".oxd-select-option",
+      "selectText": ".oxd-select-text",
+      "adminSideMenu": ".oxd-main-menu-item--name:has-text('Admin')",
+      "mainTitle": ".orangehrm-main-title",
+      "buttonAdd": ".oxd-button:has-text('Add')",
+      "buttonSave": ".oxd-button:has-text('Save')",
+      "buttonSearch": ".oxd-button:has-text('Search')",
+      "buttonCancel": ".oxd-button:has-text('Cancel')",
+      "fieldErrorMessage": ".oxd-input-field-error-message",
+      "quickPopup": ".oxd-toast-content-text",
+      "table": ".oxd-table-cell",
+      "tableRow": ".oxd-table-row",
+      "deleteButton": ".oxd-icon.bi-trash",
+      "confirmDelete": ".oxd-button--label-danger",
+      "popup": "orangehrm-dialog-popup"
+    },
+    
+    "loginPage": {
+      "usernameField": "input[name='username']",
+      "passwordField": "input[name='password']",
+      "loginButton": "button[type='submit']",
+      "errorMessage": ".oxd-alert-content-text"
+    },
+
+    "userManagement":{
+        "menu": ".oxd-topbar-body-nav-tab-item:has-text('User Management')",
+        "users": ".oxd-topbar-body-nav-tab-link:has-text('Users')",
+        "usersTitle": ".oxd-table-filter-title"
+    },
+    "job":{
+        "menu": ".oxd-topbar-body-nav-tab-item:has-text('Job')",
+        "jobTitles": ".oxd-topbar-body-nav-tab-link:has-text('Job Titles')",
+        "payGrades": ".oxd-topbar-body-nav-tab-link:has-text('Pay Grades')",
+        "employmentStatus": ".oxd-topbar-body-nav-tab-link:has-text('Employment Status')",
+        "jobCategories": ".oxd-topbar-body-nav-tab-link:has-text('Job Titles')",
+        "workShifts": ".oxd-topbar-body-nav-tab-link:has-text('Job Titles')"
+    }
+}

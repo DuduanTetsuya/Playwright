@@ -1,5 +1,30 @@
 //get random value from array: const selectedNames = productNames.sort(() => 0.5 - Math.random()).slice(0, numItems);
 //get random value between 2 nums: const rndInt = Math.floor(Math.random() * 6) + 1;
-//assert price sort: const prices = productPrices.map(price => parseFloat(price.replace('$', ''))); return prices.slice().sort((a, b) => a - b).join() === prices.join();
+//assert price sort: const prices = productPrices.map(price => parseFloat(price.replace('$', ''))); return [...]prices.slice().sort((a, b) => a - b).join() === prices.join();
 //assert name sort: return productNames.slice().sort().reverse().join() === productNames.join();
+//memisah kata = trim().split(/\s+/);
+//replace(/[^a-zA-Z0-9 ]/g, '')
 
+//#region melihat semua locators
+// const elements = await this.page.locator('*').all();
+// for (const element of elements) {
+//     console.log(await element.evaluate(el => el.outerHTML));
+//#endregion }
+
+//console pause = setTimeout(function() { debugger; }, 3000); lalu ctrl+shift+c
+
+//#region template test step
+// test('Admin Page test', async ({page}) => {
+//     const loginPage = new LoginPage(page);
+
+//     await test.step('Login', async () => {
+//         await loginPage.visit();
+//         await loginPage.login(validUsername, validPassword);
+//     })})
+//#endregion
+
+//#region template test describe
+// test.describe('SauceDemo Products', () => {
+//     const numItems = Math.floor(Math.random() * 5) + 2;
+//     test.beforeEach(async ({ page }) => {
+//#endregion
