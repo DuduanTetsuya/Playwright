@@ -24,12 +24,18 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests with HTML report
-        run: npx playwright test --reporter=html
+      - name: Run Playwright tests with JSON report
+        run: npx playwright test --reporter=json > playwright-report.json
 
-      - name: Upload HTML Report
+      - name: Upload JSON Report
         if: always()  # Selalu upload, meskipun tes berhasil/gagal
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-html-report
-          path: playwright-report/
+          name: playwright-json-report
+          path: playwright-report.json
+
+      - name: Send report to Slack
+        if: always()  # Pastikan Slack tetap dapat notifikasi meskipun tes gagal
+        run: node slack-playwright-report.js
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
