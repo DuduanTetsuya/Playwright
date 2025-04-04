@@ -53,7 +53,7 @@ test("SauceDemo Full Test", async ({ page }) => {
         await expect(page.locator(".shopping_cart_badge")).toHaveText(numItems.toString());
     });
     
-    await page.pause();
+    //await page.pause();
 
     // await test.step("Manage cart - delete 1 item", async () => {
     //     await productPage.goToCart();
