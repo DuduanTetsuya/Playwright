@@ -4,7 +4,7 @@ import locators from '../config/locators.json';
 export class AdminPage{
     constructor(private page: Page){}
     //General
-    privateadminSideMenu = locators.general.adminSideMenu;
+    adminSideMenu = locators.general.adminSideMenu;
     pageTitle = locators.general.pageTitle;
     inputBox = locators.general.inputBox;
     autoInputBox = locators.general.autoInputBox;

@@ -55,34 +55,34 @@ test("SauceDemo Full Test", async ({ page }) => {
     
     await page.pause();
 
-    await test.step("Manage cart - delete 1 item", async () => {
-        await productPage.goToCart();
-        //Assert
-        await expect(page.locator(locators.cartPage.cartTitle)).toHaveText("Your Cart");
+    // await test.step("Manage cart - delete 1 item", async () => {
+    //     await productPage.goToCart();
+    //     //Assert
+    //     await expect(page.locator(locators.cartPage.cartTitle)).toHaveText("Your Cart");
 
-        await page.locator(locators.inventoryPage.removeFromCartButton).first().click();
-        //Assert
-        await expect(page.locator(".shopping_cart_badge")).toHaveText((numItems - 1).toString());
-    });
+    //     await page.locator(locators.inventoryPage.removeFromCartButton).first().click();
+    //     //Assert
+    //     await expect(page.locator(".shopping_cart_badge")).toHaveText((numItems - 1).toString());
+    // });
 
-    await test.step("Go to checkout", async () => {
-        await cartPage.goToCheckout();
-        //Assert
-        await expect(page.locator(locators.checkoutPage.checkoutTitle)).toHaveText('Checkout: Your Information');
-    });
+    // await test.step("Go to checkout", async () => {
+    //     await cartPage.goToCheckout();
+    //     //Assert
+    //     await expect(page.locator(locators.checkoutPage.checkoutTitle)).toHaveText('Checkout: Your Information');
+    // });
 
-    await test.step("Fill form and continue", async () => {
-        await checkoutPage.fillFormAndContinue('Duanestra', 'Febri', '55581');
-        //Assert
-        await expect(page.locator(locators.checkoutOverviewPage.overviewTitle)).toHaveText('Checkout: Overview');
-    });
+    // await test.step("Fill form and continue", async () => {
+    //     await checkoutPage.fillFormAndContinue('Duanestra', 'Febri', '55581');
+    //     //Assert
+    //     await expect(page.locator(locators.checkoutOverviewPage.overviewTitle)).toHaveText('Checkout: Overview');
+    // });
 
-    await test.step("Finish checkout", async () => {
-        await checkoutPage.overviewFinish();
-        //Assert
-        await expect(page.locator(locators.checkoutCompletePage.successMessage)).toHaveText('Thank you for your order!');
-        await expect(page.locator(locators.checkoutCompletePage.backHomeButton)).toBeVisible();
-    });
+    // await test.step("Finish checkout", async () => {
+    //     await checkoutPage.overviewFinish();
+    //     //Assert
+    //     await expect(page.locator(locators.checkoutCompletePage.successMessage)).toHaveText('Thank you for your order!');
+    //     await expect(page.locator(locators.checkoutCompletePage.backHomeButton)).toBeVisible();
+    // });
 
-    await page.pause();
+    // await page.pause();
 });

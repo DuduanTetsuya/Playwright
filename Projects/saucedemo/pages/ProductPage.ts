@@ -13,9 +13,15 @@ export class ProductPage {
     async selectRandomItem(numItems: number) {
         const addToCartButtons = await this.page.locator(this.addButton).all();
         const selectedButtons = addToCartButtons.sort(() => 0.5 - Math.random()).slice(0, numItems);
-    
-        for (const button of selectedButtons) {
-            await button.click();
+        
+        // //Only click odd index
+        // for(let i=0; i<addToCartButtons.length; i++){
+        //     if(i%2 != 0){ await addToCartButtons[i].click();
+        // }
+
+        //Select random items
+        for(let i=0; i<selectedButtons.length; i++){
+            await selectedButtons[i].click();
         }
     }    
 
