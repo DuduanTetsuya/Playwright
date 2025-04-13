@@ -25,7 +25,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests with JSON report
-        run: npx playwright test --reporter=json > playwright-report.json
+        run: npx playwright test
 
       - name: Upload JSON Report
         if: always()  # Selalu upload, meskipun tes berhasil/gagal
@@ -38,4 +38,4 @@ jobs:
         if: always()  # Pastikan Slack tetap dapat notifikasi meskipun tes gagal
         run: node slack-playwright-report.js
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.https://hooks.slack.com/services/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 }}
