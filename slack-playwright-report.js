@@ -2,12 +2,13 @@ const fs = require("fs");
 const axios = require("axios");
 
 //const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"; // Ganti dengan webhook kamu
-require("dotenv").config();
-const fs = require("fs");
-const axios = require("axios");
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
+if (!SLACK_WEBHOOK_URL) {
+  console.error("❌ SLACK_WEBHOOK_URL tidak ditemukan di environment.");
+  process.exit(1);
+}
 
 // Tunggu file JSON tersedia
 const waitForFile = (filePath, timeout = 5000) => {

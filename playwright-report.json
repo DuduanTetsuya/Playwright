@@ -83,12 +83,12 @@
                     {
                       "workerIndex": 0,
                       "status": "passed",
-                      "duration": 3569,
+                      "duration": 1498,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-04-13T09:58:19.399Z",
+                      "startTime": "2025-04-13T10:05:42.057Z",
                       "attachments": []
                     }
                   ],
@@ -107,8 +107,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-04-13T09:58:18.685Z",
-    "duration": 4397.896000000001,
+    "startTime": "2025-04-13T10:05:41.368Z",
+    "duration": 2301.305,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,
