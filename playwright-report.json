@@ -56,6 +56,500 @@
   },
   "suites": [
     {
+      "title": "example.spec.ts",
+      "file": "example.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Example Test",
+          "file": "example.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Visit page has title",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 3841,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:27:21.108Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a30a6eba6312f6b87ea5-02f9cb897f3be60e8713",
+              "file": "example.spec.ts",
+              "line": 4,
+              "column": 5
+            },
+            {
+              "title": "Visit page get started link",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 1429,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:27:25.033Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a30a6eba6312f6b87ea5-126b3af48071218bb79c",
+              "file": "example.spec.ts",
+              "line": 11,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "orangehrm\\tests\\AdminTest.spec.ts",
+      "file": "orangehrm/tests/AdminTest.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "OrangeHRM",
+          "file": "orangehrm/tests/AdminTest.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Admin Page test",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "failed",
+                      "duration": 24766,
+                      "error": {
+                        "message": "Error: locator.waitFor: Error: strict mode violation: locator('.oxd-toast-content-text').filter({ hasText: 'No Record' }) resolved to 2 elements:\n    1) <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p> aka getByText('No Records Found').nth(1)\n    2) <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p> aka getByText('No Records Found').nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.oxd-toast-content-text').filter({ hasText: 'No Record' }) to be detached\u001b[22m\n\u001b[2m    6 × locator resolved to visible <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p>\u001b[22m\n",
+                        "stack": "Error: locator.waitFor: Error: strict mode violation: locator('.oxd-toast-content-text').filter({ hasText: 'No Record' }) resolved to 2 elements:\n    1) <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p> aka getByText('No Records Found').nth(1)\n    2) <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p> aka getByText('No Records Found').nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.oxd-toast-content-text').filter({ hasText: 'No Record' }) to be detached\u001b[22m\n\u001b[2m    6 × locator resolved to visible <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p>\u001b[22m\n\n    at AdminPage.assertUserNotExist (E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\pages\\AdminPage.ts:96:81)\n    at E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\tests\\AdminTest.spec.ts:32:13\n    at E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\tests\\AdminTest.spec.ts:30:9",
+                        "location": {
+                          "file": "E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\pages\\AdminPage.ts",
+                          "column": 81,
+                          "line": 96
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39morangehrm\\pages\\AdminPage.ts:96\n\n\u001b[0m \u001b[90m 94 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mbuttonSearch)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 95 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mquickPopup)\u001b[33m.\u001b[39mfilter({hasText\u001b[33m:\u001b[39m \u001b[32m'No Record'\u001b[39m})\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m'attached'\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 96 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mquickPopup)\u001b[33m.\u001b[39mfilter({hasText\u001b[33m:\u001b[39m \u001b[32m'No Record'\u001b[39m})\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m'detached'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 97 |\u001b[39m     }\n \u001b[90m 98 |\u001b[39m\n \u001b[90m 99 |\u001b[39m     \u001b[90m//#endregion ========== User Management ==========\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\pages\\AdminPage.ts",
+                            "column": 81,
+                            "line": 96
+                          },
+                          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.oxd-toast-content-text').filter({ hasText: 'No Record' }) resolved to 2 elements:\n    1) <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p> aka getByText('No Records Found').nth(1)\n    2) <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p> aka getByText('No Records Found').nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.oxd-toast-content-text').filter({ hasText: 'No Record' }) to be detached\u001b[22m\n\u001b[2m    6 × locator resolved to visible <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p>\u001b[22m\n\n\n\u001b[90m   at \u001b[39morangehrm\\pages\\AdminPage.ts:96\n\n\u001b[0m \u001b[90m 94 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mbuttonSearch)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 95 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mquickPopup)\u001b[33m.\u001b[39mfilter({hasText\u001b[33m:\u001b[39m \u001b[32m'No Record'\u001b[39m})\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m'attached'\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 96 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mquickPopup)\u001b[33m.\u001b[39mfilter({hasText\u001b[33m:\u001b[39m \u001b[32m'No Record'\u001b[39m})\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m'detached'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 97 |\u001b[39m     }\n \u001b[90m 98 |\u001b[39m\n \u001b[90m 99 |\u001b[39m     \u001b[90m//#endregion ========== User Management ==========\u001b[39m\u001b[0m\n\u001b[2m    at AdminPage.assertUserNotExist (E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\pages\\AdminPage.ts:96:81)\u001b[22m\n\u001b[2m    at E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\tests\\AdminTest.spec.ts:32:13\u001b[22m\n\u001b[2m    at E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\tests\\AdminTest.spec.ts:30:9\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Login",
+                          "duration": 7196
+                        },
+                        {
+                          "title": "Go to User Management - Users",
+                          "duration": 3201
+                        },
+                        {
+                          "title": "Add new user",
+                          "duration": 9550
+                        },
+                        {
+                          "title": "Delete user",
+                          "duration": 4770,
+                          "error": {
+                            "message": "Error: locator.waitFor: Error: strict mode violation: locator('.oxd-toast-content-text').filter({ hasText: 'No Record' }) resolved to 2 elements:\n    1) <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p> aka getByText('No Records Found').nth(1)\n    2) <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p> aka getByText('No Records Found').nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.oxd-toast-content-text').filter({ hasText: 'No Record' }) to be detached\u001b[22m\n\u001b[2m    6 × locator resolved to visible <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p>\u001b[22m\n",
+                            "stack": "Error: locator.waitFor: Error: strict mode violation: locator('.oxd-toast-content-text').filter({ hasText: 'No Record' }) resolved to 2 elements:\n    1) <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p> aka getByText('No Records Found').nth(1)\n    2) <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p> aka getByText('No Records Found').nth(2)\n\nCall log:\n\u001b[2m  - waiting for locator('.oxd-toast-content-text').filter({ hasText: 'No Record' }) to be detached\u001b[22m\n\u001b[2m    6 × locator resolved to visible <p data-v-7b563373=\"\" data-v-35c8fe09=\"\" class=\"oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text\">No Records Found</p>\u001b[22m\n\n    at AdminPage.assertUserNotExist (E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\pages\\AdminPage.ts:96:81)\n    at E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\tests\\AdminTest.spec.ts:32:13\n    at E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\tests\\AdminTest.spec.ts:30:9",
+                            "location": {
+                              "file": "E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\pages\\AdminPage.ts",
+                              "column": 81,
+                              "line": 96
+                            },
+                            "snippet": "\u001b[90m   at \u001b[39morangehrm\\pages\\AdminPage.ts:96\n\n\u001b[0m \u001b[90m 94 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mbuttonSearch)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 95 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mquickPopup)\u001b[33m.\u001b[39mfilter({hasText\u001b[33m:\u001b[39m \u001b[32m'No Record'\u001b[39m})\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m'attached'\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 96 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mquickPopup)\u001b[33m.\u001b[39mfilter({hasText\u001b[33m:\u001b[39m \u001b[32m'No Record'\u001b[39m})\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m'detached'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 97 |\u001b[39m     }\n \u001b[90m 98 |\u001b[39m\n \u001b[90m 99 |\u001b[39m     \u001b[90m//#endregion ========== User Management ==========\u001b[39m\u001b[0m"
+                          }
+                        }
+                      ],
+                      "startTime": "2025-04-13T11:27:26.474Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "E:\\Repository\\PlaywrightGit\\Projects\\orangehrm\\pages\\AdminPage.ts",
+                        "column": 81,
+                        "line": 96
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "73633f8d241252f5849a-bacb9868e43740bca728",
+              "file": "orangehrm/tests/AdminTest.spec.ts",
+              "line": 7,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "orangehrm\\tests\\LoginTest.spec.ts",
+      "file": "orangehrm/tests/LoginTest.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "OrangeHRM Login test",
+          "file": "orangehrm/tests/LoginTest.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Valid credential should success",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 6351,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:27:51.966Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "cf890cc397d20f5dfde7-188e9cf9c0c09933094b",
+              "file": "orangehrm/tests/LoginTest.spec.ts",
+              "line": 15,
+              "column": 9
+            },
+            {
+              "title": "Invalid credential should error",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 7172,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:27:58.388Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "cf890cc397d20f5dfde7-ae304091b093b0c2b662",
+              "file": "orangehrm/tests/LoginTest.spec.ts",
+              "line": 20,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "orangehrm\\tests\\PimTest.spec.ts",
+      "file": "orangehrm/tests/PimTest.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "OrangeHRM",
+          "file": "orangehrm/tests/PimTest.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "PIM Page test",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 8286,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Login",
+                          "duration": 5908
+                        },
+                        {
+                          "title": "Go to PIM",
+                          "duration": 2324
+                        }
+                      ],
+                      "startTime": "2025-04-13T11:28:05.570Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5b282535173d61dcca0d-dad12946db4cb87219e8",
+              "file": "orangehrm/tests/PimTest.spec.ts",
+              "line": 7,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "saucedemo\\tests\\FullFlow.spec.ts",
+      "file": "saucedemo/tests/FullFlow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "SauceDemo",
+          "file": "saucedemo/tests/FullFlow.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Full Flow Test",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 1600,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Login to SauceDemo",
+                          "duration": 1073
+                        },
+                        {
+                          "title": "Sort price 'Low to High'",
+                          "duration": 35
+                        },
+                        {
+                          "title": "Sort price 'High to Low'",
+                          "duration": 21
+                        },
+                        {
+                          "title": "Sort name 'AZ'",
+                          "duration": 31
+                        },
+                        {
+                          "title": "Sort name 'ZA'",
+                          "duration": 22
+                        },
+                        {
+                          "title": "Select random items",
+                          "duration": 112
+                        },
+                        {
+                          "title": "Manage cart - delete 1 item",
+                          "duration": 83
+                        },
+                        {
+                          "title": "Go to checkout",
+                          "duration": 54
+                        },
+                        {
+                          "title": "Fill form and continue",
+                          "duration": 69
+                        },
+                        {
+                          "title": "Finish checkout",
+                          "duration": 50
+                        }
+                      ],
+                      "startTime": "2025-04-13T11:28:13.872Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "404f4a1e283abcece062-aa61f59b08069c80cd26",
+              "file": "saucedemo/tests/FullFlow.spec.ts",
+              "line": 9,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "saucedemo\\tests\\LoginTest.spec.ts",
+      "file": "saucedemo/tests/LoginTest.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "SauceDemo Login",
+          "file": "saucedemo/tests/LoginTest.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Valid credential should Success",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 1129,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:28:15.479Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "afa93447b9d936bbe4f7-70efbb3c44be63ddb7ca",
+              "file": "saucedemo/tests/LoginTest.spec.ts",
+              "line": 12,
+              "column": 7
+            },
+            {
+              "title": "Invalid credential should Error",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 1083,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:28:16.614Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "afa93447b9d936bbe4f7-affe571103dc62f19495",
+              "file": "saucedemo/tests/LoginTest.spec.ts",
+              "line": 18,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "saucedemo\\tests\\ProductSelect.spec.ts",
       "file": "saucedemo/tests/ProductSelect.spec.ts",
       "column": 0,
@@ -81,14 +575,14 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 1,
                       "status": "passed",
-                      "duration": 1498,
+                      "duration": 1207,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-04-13T10:05:42.057Z",
+                      "startTime": "2025-04-13T11:28:17.706Z",
                       "attachments": []
                     }
                   ],
@@ -103,15 +597,192 @@
           ]
         }
       ]
+    },
+    {
+      "title": "testAPI.spec.ts",
+      "file": "testAPI.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "API test suite",
+          "file": "testAPI.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "API Test: GET request",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 826,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:28:18.920Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6a1feeccdfd259cdd6e2-69ead502aa982a731cb4",
+              "file": "testAPI.spec.ts",
+              "line": 4,
+              "column": 5
+            },
+            {
+              "title": "API Test: POST request",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 490,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:28:19.749Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6a1feeccdfd259cdd6e2-ea9035a700b2b78b9e8f",
+              "file": "testAPI.spec.ts",
+              "line": 11,
+              "column": 5
+            },
+            {
+              "title": "API Test: PUT request",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 484,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:28:20.243Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6a1feeccdfd259cdd6e2-d3621b530bf0dcc8f885",
+              "file": "testAPI.spec.ts",
+              "line": 24,
+              "column": 5
+            },
+            {
+              "title": "API Test: DELETE request",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 341,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:28:20.731Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6a1feeccdfd259cdd6e2-28e063d8d88be3000a94",
+              "file": "testAPI.spec.ts",
+              "line": 38,
+              "column": 5
+            },
+            {
+              "title": "API Test: Login request",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 592,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-13T11:28:21.075Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6a1feeccdfd259cdd6e2-2d20ccb99421181b1b14",
+              "file": "testAPI.spec.ts",
+              "line": 43,
+              "column": 5
+            }
+          ]
+        }
+      ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-04-13T10:05:41.368Z",
-    "duration": 2301.305,
-    "expected": 1,
+    "startTime": "2025-04-13T11:27:20.310Z",
+    "duration": 61408.272000000004,
+    "expected": 14,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 1,
     "flaky": 0
   }
 }
