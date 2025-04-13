@@ -49,64 +49,45 @@ function extractTests(suite) {
     const suiteTitle = suite.title || "(No Describe)";
     let suiteDetail = `*${suiteTitle}*`;
 
-    // Menyimpan hasil terakhir dari setiap test
-    const latestTestResults = {};
-
     for (const spec of suite.specs) {
       for (const test of spec.tests || []) {
-        for (const result of test.results || []) {
-          totalTests++;
+        totalTests++;
 
-          let icon = "❌ FAILED";
-          if (result.status === "passed") {
-            passedTests++;
-            icon = "✅ PASSED";
-          } else if (result.status === "skipped") {
-            skippedTests++;
-            icon = "⚠️ SKIPPED";
-          } else {
-            failedTests++;
+        // Ambil result terakhir
+        const lastResult = test.results?.[test.results.length - 1];
+        let icon = "❌ FAILED";
+        if (lastResult?.status === "passed") {
+          passedTests++;
+          icon = "✅ PASSED";
+        } else if (lastResult?.status === "skipped") {
+          skippedTests++;
+          icon = "⚠️ SKIPPED";
+        } else {
+          failedTests++;
+        }
+
+        let resultText = `> ${test.title || spec.title}: ${icon}`;
+
+        // Tambahkan langkah (steps)
+        if (Array.isArray(lastResult?.steps)) {
+          const stepLines = [];
+          for (const step of lastResult.steps) {
+            try {
+              const stepTitle = step?.title ?? "(no title)";
+              const duration = typeof step?.duration === "number" ? step.duration : "N/A";
+              stepLines.push(`>> ${stepTitle} (${duration}ms)`);
+            } catch (stepErr) {
+              stepLines.push(">> [error reading step]");
+            }
           }
-
-          // Menyimpan hasil terakhir dari setiap test berdasarkan nama test
-          if (!latestTestResults[test.title] || new Date(result.endTime) > new Date(latestTestResults[test.title].endTime)) {
-            latestTestResults[test.title] = result;
+          if (stepLines.length > 0) {
+            resultText += `\n${stepLines.join("\n")}`;
           }
         }
+
+        suiteDetail += `\n${resultText}`;
       }
     }
-
-    // Menambahkan hasil terakhir dari setiap test ke detail
-    Object.keys(latestTestResults).forEach(testName => {
-      const result = latestTestResults[testName];
-      let icon = "❌ FAILED";
-      if (result.status === "passed") {
-        icon = "✅ PASSED";
-      } else if (result.status === "skipped") {
-        icon = "⚠️ SKIPPED";
-      }
-
-      let resultText = `> ${testName}: ${icon}`;
-
-      // Safe check steps
-      if (Array.isArray(result.steps)) {
-        const stepLines = [];
-        for (const step of result.steps) {
-          try {
-            const stepTitle = step?.title ?? "(no title)";
-            const duration = typeof step?.duration === "number" ? step.duration : "N/A";
-            stepLines.push(`>> ${stepTitle} (${duration}ms)`);
-          } catch (stepErr) {
-            stepLines.push(">> [error reading step]");
-          }
-        }
-        if (stepLines.length > 0) {
-          resultText += `\n${stepLines.join("\n")}`;
-        }
-      }
-
-      suiteDetail += `\n${resultText}`;
-    });
 
     details.push(suiteDetail);
   }
