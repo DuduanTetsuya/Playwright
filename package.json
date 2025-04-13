@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^1.8.4",
+    "dotenv": "^16.5.0",
     "playwright-slack-reporter": "^1.0.0"
   }
 }
