@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { ProductPage } from '../pages/ProductPage';
 
-test.describe('SauceDemo Products', () => {
+test.describe("SauceDemo Products", () => {
     const numItems = Math.floor(Math.random() * 5) + 2;
     test.beforeEach(async ({ page }) => {
         const loginPage = new LoginPage(page);

@@ -23,8 +23,10 @@ export default defineConfig({
   //workers: process.env.CI ? 1 : undefined,
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['json', { outputFile: 'playwright-report.json' }], ['html']],
-  //reporter: 'html',
+  reporter: [
+    ['json', { outputFile: 'playwright-report.json' }],  // Menyimpan laporan tes dalam format JSON
+    ['html']  // Laporan HTML
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */

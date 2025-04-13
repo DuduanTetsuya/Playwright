@@ -2,7 +2,7 @@ import { LoginPage } from "../pages/LoginPage";
 import { test } from '@playwright/test'
 import config from '../config/config.json';
 
-test.describe('Login test', () => {
+test.describe('OrangeHRM Login test', () => {
     let loginPage: LoginPage;
     const validUsername = config.validUsername;
     const validPassword = config.validPassword;

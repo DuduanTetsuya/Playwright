@@ -1,5 +1,6 @@
 import { test, expect, request } from '@playwright/test';
 
+test.describe("API test suite", () => {
 test('API Test: GET request', async ({ request }) => {
     const response = await request.get('https://jsonplaceholder.typicode.com/posts/1');
     expect(response.status()).toBe(200);
@@ -50,3 +51,4 @@ test('API Test: Login request', async ({ request }) => {
     const responseBody = await response.json();
     expect(responseBody).toHaveProperty('token');
 });
+})

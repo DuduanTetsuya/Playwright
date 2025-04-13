@@ -1,60 +1,120 @@
 const fs = require("fs");
 const axios = require("axios");
 
-const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
+const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"; // Ganti dengan webhook kamu
 
-// **Baca file laporan JSON**
-const report = JSON.parse(fs.readFileSync("playwright-report.json", "utf-8"));
+// Tunggu file JSON tersedia
+const waitForFile = (filePath, timeout = 5000) => {
+  const start = Date.now();
+  while (!fs.existsSync(filePath)) {
+    if (Date.now() - start > timeout) {
+      throw new Error("⏳ Timeout: Report file belum tersedia.");
+    }
+  }
+};
 
-// **Cari eksekusi terakhir berdasarkan `startTime`**
-const lastExecutionSuite = report.suites.reduce((latest, suite) => {
-  return !latest || suite.startTime > latest.startTime ? suite : latest;
-}, null);
+waitForFile("./playwright-report.json");
 
-if (!lastExecutionSuite) {
-  console.error("❌ No test results found.");
+let report;
+try {
+  const raw = fs.readFileSync("./playwright-report.json", "utf-8");
+  report = JSON.parse(raw);
+} catch (err) {
+  console.error("❌ Gagal membaca atau mem-parsing JSON:", err);
   process.exit(1);
 }
 
-// **Ambil semua tes dalam eksekusi terakhir**
-const lastTests = lastExecutionSuite.specs;
+if (!report?.suites || report.suites.length === 0) {
+  console.error("❌ Tidak ada data suite ditemukan dalam laporan.");
+  process.exit(1);
+}
 
-// **Ringkasan hasil tes terakhir**
-const totalTests = lastTests.length;
-const passedTests = lastTests.filter((spec) => spec.ok).length;
-const failedTests = totalTests - passedTests;
-const skippedTests = lastTests.filter((spec) => spec.skipped).length;
+let totalTests = 0;
+let passedTests = 0;
+let failedTests = 0;
+let skippedTests = 0;
+let details = [];
 
-// **Detail hasil tes terakhir, termasuk langkah-langkah (test.step)**
-let testDetails = lastTests
-  .map((spec) => {
-    let resultText = `*${spec.title}*: ${spec.ok ? "✅ PASSED" : "❌ FAILED"}`;
+function extractTests(suite) {
+  if (suite.suites?.length) {
+    suite.suites.forEach(extractTests);
+  }
 
-    // **Loop ke dalam langkah-langkah (test.step)**
-    let stepDetails = spec.tests.flatMap((test) =>
-      test.results.flatMap((result) =>
-        result.steps.map(
-          (step) => `  - ${step.title}: ${step.duration}ms`
-        )
-      )
-    );
+  if (suite.specs?.length) {
+    const suiteTitle = suite.title || "(No Describe)";
+    let suiteDetail = `*${suiteTitle}*`;
 
-    return [resultText, ...stepDetails].join("\n");
-  })
-  .join("\n\n");
+    for (const spec of suite.specs) {
+      for (const test of spec.tests || []) {
+        for (const result of test.results || []) {
+          totalTests++;
 
-// **Buat pesan Slack**
-const message = `🎭 *Playwright Test Report from Local* 🚀\n
-*Summary (Last Execution Only)*
+          let icon = "❌ FAILED";
+          if (result.status === "passed") {
+            passedTests++;
+            icon = "✅ PASSED";
+          } else if (result.status === "skipped") {
+            skippedTests++;
+            icon = "⚠️ SKIPPED";
+          } else {
+            failedTests++;
+          }
+
+          let resultText = `> ${spec.title}: ${icon}`;
+
+          // Safe check steps
+          if (Array.isArray(result.steps)) {
+            const stepLines = [];
+            for (const step of result.steps) {
+              try {
+                const stepTitle = step?.title ?? "(no title)";
+                const duration = typeof step?.duration === "number" ? step.duration : "N/A";
+                stepLines.push(`>> ${stepTitle} (${duration}ms)`);
+              } catch (stepErr) {
+                stepLines.push(">> [error reading step]");
+              }
+            }
+            if (stepLines.length > 0) {
+              resultText += `\n${stepLines.join("\n")}`;
+            }
+          }
+
+          suiteDetail += `\n${resultText}`;
+        }
+      }
+    }
+
+    details.push(suiteDetail);
+  }
+}
+
+// Ekstrak semua test
+try {
+  for (const rootSuite of report.suites) {
+    extractTests(rootSuite);
+  }
+} catch (e) {
+  console.error("❌ Error saat memproses suites:", e);
+  process.exit(1);
+}
+
+// Format pesan Slack
+const message = `:performing_arts: *Playwright Test Report from Local* :rocket:
+
+*Summary*
 Total Tests: ${totalTests}
-✅ Passed: ${passedTests}
-❌ Failed: ${failedTests}
-⚠️ Skipped: ${skippedTests}
+:white_check_mark: Passed: ${passedTests}
+:x: Failed: ${failedTests}
+:warning: Skipped: ${skippedTests}
 
-*Test Details*
-${testDetails}`;
+*Details*
+${details.join("\n\n")}
+`;
 
-// **Kirim ke Slack**
+// Kirim ke Slack
 axios.post(SLACK_WEBHOOK_URL, { text: message })
   .then(() => console.log("✅ Report sent to Slack!"))
-  .catch((err) => console.error("❌ Failed to send report:", err));
+  .catch((err) => {
+    console.error("❌ Gagal mengirim ke Slack:", err.response?.data || err.message);
+    process.exit(1);
+  });
