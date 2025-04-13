@@ -1,7 +1,8 @@
 const fs = require("fs");
 const axios = require("axios");
 
-const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"; // Ganti dengan webhook kamu
+//const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"; // Ganti dengan webhook kamu
+const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
 // Tunggu file JSON tersedia
 const waitForFile = (filePath, timeout = 5000) => {
