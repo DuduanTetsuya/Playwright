@@ -1,8 +1,6 @@
 const fs = require("fs");
 const axios = require("axios");
 
-//const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"; // Ganti dengan webhook kamu
-
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
 if (!SLACK_WEBHOOK_URL) {
@@ -51,6 +49,9 @@ function extractTests(suite) {
     const suiteTitle = suite.title || "(No Describe)";
     let suiteDetail = `*${suiteTitle}*`;
 
+    // Menyimpan hasil terakhir dari setiap test
+    const latestTestResults = {};
+
     for (const spec of suite.specs) {
       for (const test of spec.tests || []) {
         for (const result of test.results || []) {
@@ -67,29 +68,45 @@ function extractTests(suite) {
             failedTests++;
           }
 
-          let resultText = `> ${spec.title}: ${icon}`;
-
-          // Safe check steps
-          if (Array.isArray(result.steps)) {
-            const stepLines = [];
-            for (const step of result.steps) {
-              try {
-                const stepTitle = step?.title ?? "(no title)";
-                const duration = typeof step?.duration === "number" ? step.duration : "N/A";
-                stepLines.push(`>> ${stepTitle} (${duration}ms)`);
-              } catch (stepErr) {
-                stepLines.push(">> [error reading step]");
-              }
-            }
-            if (stepLines.length > 0) {
-              resultText += `\n${stepLines.join("\n")}`;
-            }
+          // Menyimpan hasil terakhir dari setiap test berdasarkan nama test
+          if (!latestTestResults[test.title] || new Date(result.endTime) > new Date(latestTestResults[test.title].endTime)) {
+            latestTestResults[test.title] = result;
           }
-
-          suiteDetail += `\n${resultText}`;
         }
       }
     }
+
+    // Menambahkan hasil terakhir dari setiap test ke detail
+    Object.keys(latestTestResults).forEach(testName => {
+      const result = latestTestResults[testName];
+      let icon = "❌ FAILED";
+      if (result.status === "passed") {
+        icon = "✅ PASSED";
+      } else if (result.status === "skipped") {
+        icon = "⚠️ SKIPPED";
+      }
+
+      let resultText = `> ${testName}: ${icon}`;
+
+      // Safe check steps
+      if (Array.isArray(result.steps)) {
+        const stepLines = [];
+        for (const step of result.steps) {
+          try {
+            const stepTitle = step?.title ?? "(no title)";
+            const duration = typeof step?.duration === "number" ? step.duration : "N/A";
+            stepLines.push(`>> ${stepTitle} (${duration}ms)`);
+          } catch (stepErr) {
+            stepLines.push(">> [error reading step]");
+          }
+        }
+        if (stepLines.length > 0) {
+          resultText += `\n${stepLines.join("\n")}`;
+        }
+      }
+
+      suiteDetail += `\n${resultText}`;
+    });
 
     details.push(suiteDetail);
   }
