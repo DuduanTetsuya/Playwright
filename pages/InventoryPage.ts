@@ -42,6 +42,10 @@ export class InventoryPage {
     }
 
     // Actions
+    async clickShoppingCart() {
+        await this.shoppingCartLink.click();
+    }
+
     async addItemToCart(itemName: string) {
         await this.addToCartButton(itemName).click();
     }
