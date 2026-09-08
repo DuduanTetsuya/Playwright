@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { LoginSelectors } from '../selectors/login.selectors';
+import { LoginSelectors } from '../../selectors/saucedemo/login.selectors';
 
 export class LoginPage {
     readonly page: Page;

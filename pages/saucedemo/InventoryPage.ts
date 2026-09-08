@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { InventorySelectors } from '../selectors/inventory.selectors';
+import { InventorySelectors } from '../../selectors/saucedemo/inventory.selectors';
 
 export class InventoryPage {
     readonly page: Page;

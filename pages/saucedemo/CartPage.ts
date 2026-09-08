@@ -1,5 +1,5 @@
 import { Page, Locator } from '@playwright/test';
-import { CartSelectors } from '../selectors/cart.selectors';
+import { CartSelectors } from '../../selectors/saucedemo/cart.selectors';
 
 export class CartPage {
     readonly page: Page;

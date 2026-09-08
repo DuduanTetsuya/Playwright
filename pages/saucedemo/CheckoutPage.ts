@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { CheckoutSelectors } from '../selectors/checkout.selectors';
+import { CheckoutSelectors } from '../../selectors/saucedemo/checkout.selectors';
 
 export class CheckoutPage {
     readonly page: Page;
