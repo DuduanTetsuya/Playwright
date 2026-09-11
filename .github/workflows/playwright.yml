@@ -30,12 +30,18 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
+    - name: Run Playwright tests with JSON report
       shell: bash
-      run: npx playwright test "$TEST_PATH"
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+      run: npx playwright test --reporter=json "$TEST_PATH" > playwright-report.json
+    - name: Upload JSON Report
+      if: always()
+      uses: actions/upload-artifact@v4
       with:
-        name: playwright-report
-        path: playwright-report/
+        name: playwright-json-report
+        path: playwright-report.json
         retention-days: 30
+    - name: Send report to Slack
+      if: always()
+      run: node slack-playwright-report.js
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
