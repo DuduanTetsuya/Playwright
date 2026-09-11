@@ -23,7 +23,10 @@ waitForFile("./playwright-report.json");
 
 let report;
 try {
-  const raw = fs.readFileSync("./playwright-report.json", "utf-8");
+  const reportBuffer = fs.readFileSync("./playwright-report.json");
+  const raw = reportBuffer[0] === 0xff && reportBuffer[1] === 0xfe
+    ? reportBuffer.toString("utf16le").replace(/^\uFEFF/, "")
+    : reportBuffer.toString("utf8").replace(/^\uFEFF/, "");
   report = JSON.parse(raw);
 } catch (err) {
   console.error("❌ Gagal membaca atau mem-parsing JSON:", err);
