@@ -10,7 +10,7 @@ test.describe('OrangeHRM Login Tests', () => {
     });
 
     test('User can login successfully with valid credentials', async () => {
-        await loginPage.login('Admin', 'admin123');
+        await loginPage.login(process.env.ORANGEHRM_USERNAME!, process.env.ORANGEHRM_PASSWORD!);
         await loginPage.verifyDashboardLoaded();
     });
 

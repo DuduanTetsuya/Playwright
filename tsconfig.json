@@ -12,6 +12,7 @@
     "pages/**/*",
     "selectors/**/*",
     "helpers/**/*",
+    "global-setup.ts",
     "playwright.config.ts"
   ]
 }

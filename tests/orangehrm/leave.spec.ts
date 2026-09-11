@@ -1,17 +1,18 @@
 import { test, expect } from '@playwright/test';
 import { SideMenuPage } from '../../pages/orangehrm/SideMenuPage';
 import { LeavePage } from '../../pages/orangehrm/LeavePage';
-import { loginAsAdmin } from '../../helpers/orangehrm/auth.helper';
+import { OrangeHRMLoginPage } from '../../pages/orangehrm/LoginPage';
 
 test.describe('OrangeHRM Leave Module Tests', () => {
     let sideMenuPage: SideMenuPage;
     let leavePage: LeavePage;
+    let loginPage: OrangeHRMLoginPage;
 
     test.beforeEach(async ({ page }) => {
         sideMenuPage = new SideMenuPage(page);
         leavePage = new LeavePage(page);
-        
-        await loginAsAdmin(page);
+        loginPage = new OrangeHRMLoginPage(page);
+        await loginPage.goto();
         await sideMenuPage.clickMenuItem('Leave');
     });
 

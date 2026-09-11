@@ -3,23 +3,18 @@ import { LoginPage } from '../../pages/saucedemo/LoginPage';
 import { InventoryPage } from '../../pages/saucedemo/InventoryPage';
 import { CartPage } from '../../pages/saucedemo/CartPage';
 import { CheckoutPage } from '../../pages/saucedemo/CheckoutPage';
-import { loginAsStandardUser } from '../../helpers/saucedemo/auth.helper';
 
 test.describe('Checkout Tests', () => {
-    let loginPage: LoginPage;
     let inventoryPage: InventoryPage;
     let cartPage: CartPage;
     let checkoutPage: CheckoutPage;
 
     test.beforeEach(async ({ page }) => {
-        loginPage = new LoginPage(page);
+        const loginPage = new LoginPage(page);
         inventoryPage = new InventoryPage(page);
         cartPage = new CartPage(page);
         checkoutPage = new CheckoutPage(page);
         await loginPage.goto();
-        
-        // Login as standard user before each test so we are on the inventory page
-        await loginAsStandardUser(page);
     });
 
     test('User can complete checkout flow with validation on empty fields', async () => {

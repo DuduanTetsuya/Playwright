@@ -1,17 +1,18 @@
 import { test, expect } from '@playwright/test';
 import { SideMenuPage } from '../../pages/orangehrm/SideMenuPage';
 import { AdminPage } from '../../pages/orangehrm/AdminPage';
-import { loginAsAdmin } from '../../helpers/orangehrm/auth.helper';
+import { OrangeHRMLoginPage } from '../../pages/orangehrm/LoginPage';
 
 test.describe('OrangeHRM Admin Module Tests', () => {
     let sideMenuPage: SideMenuPage;
     let adminPage: AdminPage;
+    let loginPage: OrangeHRMLoginPage;
 
     test.beforeEach(async ({ page }) => {
         sideMenuPage = new SideMenuPage(page);
         adminPage = new AdminPage(page);
-        
-        await loginAsAdmin(page);
+        loginPage = new OrangeHRMLoginPage(page);
+        await loginPage.goto();
         await sideMenuPage.clickMenuItem('Admin');
     });
 

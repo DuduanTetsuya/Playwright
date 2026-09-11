@@ -1,11 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { SideMenuPage } from '../../pages/orangehrm/SideMenuPage';
 import { PimPage } from '../../pages/orangehrm/PimPage';
-import { loginAsAdmin } from '../../helpers/orangehrm/auth.helper';
+import { OrangeHRMLoginPage } from '../../pages/orangehrm/LoginPage';
 
 test.describe('OrangeHRM PIM Module Tests', () => {
     let sideMenuPage: SideMenuPage;
     let pimPage: PimPage;
+    let loginPage: OrangeHRMLoginPage;
 
     const testFirstName = 'Automated';
     const testLastName = 'QA User';
@@ -13,8 +14,8 @@ test.describe('OrangeHRM PIM Module Tests', () => {
     test.beforeEach(async ({ page }) => {
         sideMenuPage = new SideMenuPage(page);
         pimPage = new PimPage(page);
-        
-        await loginAsAdmin(page);
+        loginPage = new OrangeHRMLoginPage(page);
+        await loginPage.goto();
         await sideMenuPage.clickMenuItem('PIM');
     });
 

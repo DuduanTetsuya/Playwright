@@ -1,17 +1,18 @@
 import { test, expect } from '@playwright/test';
 import { SideMenuPage } from '../../pages/orangehrm/SideMenuPage';
 import { RecruitmentPage } from '../../pages/orangehrm/RecruitmentPage';
-import { loginAsAdmin } from '../../helpers/orangehrm/auth.helper';
+import { OrangeHRMLoginPage } from '../../pages/orangehrm/LoginPage';
 
 test.describe('OrangeHRM Recruitment Module Tests', () => {
     let sideMenuPage: SideMenuPage;
     let recruitmentPage: RecruitmentPage;
+    let loginPage: OrangeHRMLoginPage;
 
     test.beforeEach(async ({ page }) => {
         sideMenuPage = new SideMenuPage(page);
         recruitmentPage = new RecruitmentPage(page);
-        
-        await loginAsAdmin(page);
+        loginPage = new OrangeHRMLoginPage(page);
+        await loginPage.goto();
         await sideMenuPage.clickMenuItem('Recruitment');
     });
 

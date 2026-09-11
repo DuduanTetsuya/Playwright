@@ -13,7 +13,7 @@ test.describe('Login Tests', () => {
     });
 
     test('User can login successfully with valid credentials', async () => {
-        await loginPage.login('standard_user', 'secret_sauce');
+        await loginPage.login(process.env.SAUCEDEMO_USERNAME!, process.env.SAUCEDEMO_PASSWORD!);
         await inventoryPage.verifyInventoryPageLoaded();
     });
 
@@ -33,7 +33,7 @@ test.describe('Login Tests', () => {
     });
 
     test('User should not able to login with empty password', async () => {
-        await loginPage.login('standard_user', '');
+        await loginPage.login(process.env.SAUCEDEMO_USERNAME!, '');
         await loginPage.verifyErrorMessage('Epic sadface: Password is required');
     });
 });
