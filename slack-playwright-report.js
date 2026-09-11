@@ -1,5 +1,6 @@
 const fs = require("fs");
 const axios = require("axios");
+require("dotenv").config();
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 

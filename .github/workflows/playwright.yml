@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       test_path:
-        description: 'Test path, for example tests/saucedemo/login.spec.ts. Leave empty to run all tests.'
+        description: 'Test path. Default: tests/saucedemo'
         required: false
-        default: ''
+        default: 'tests/saucedemo'
         type: string
 jobs:
   test:
@@ -20,7 +20,7 @@ jobs:
       SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
       ORANGEHRM_USERNAME: ${{ secrets.ORANGEHRM_USERNAME }}
       ORANGEHRM_PASSWORD: ${{ secrets.ORANGEHRM_PASSWORD }}
-      TEST_PATH: ${{ inputs.test_path }}
+      TEST_PATH: ${{ inputs.test_path || 'tests/saucedemo' }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -32,12 +32,7 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       shell: bash
-      run: |
-        if [ -n "$TEST_PATH" ]; then
-          npx playwright test "$TEST_PATH"
-        else
-          npx playwright test
-        fi
+      run: npx playwright test "$TEST_PATH"
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

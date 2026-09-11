@@ -2,13 +2,13 @@ name: Playwright Scheduled Test
 
 on:
   schedule:
-    - cron: '0 8 * * *'  # Jalankan setiap hari pukul 08:00 UTC
+    - cron: '0 0 * * *'  # Setiap hari pukul 07:00 WIB (00:00 UTC)
   workflow_dispatch:
     inputs:
       test_path:
-        description: 'Test path, for example tests/saucedemo/login.spec.ts. Leave empty to run all tests.'
+        description: 'Test path. Default: tests/saucedemo'
         required: false
-        default: ''
+        default: 'tests/saucedemo'
         type: string
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
       SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
       ORANGEHRM_USERNAME: ${{ secrets.ORANGEHRM_USERNAME }}
       ORANGEHRM_PASSWORD: ${{ secrets.ORANGEHRM_PASSWORD }}
-      TEST_PATH: ${{ inputs.test_path }}
+      TEST_PATH: ${{ inputs.test_path || 'tests/saucedemo' }}
 
     steps:
       - name: Checkout repository
@@ -31,19 +31,14 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests with JSON report
         shell: bash
-        run: |
-          if [ -n "$TEST_PATH" ]; then
-            npx playwright test "$TEST_PATH"
-          else
-            npx playwright test
-          fi
+        run: npx playwright test --reporter=json "$TEST_PATH" > playwright-report.json
 
       - name: Upload JSON Report
         if: always()  # Selalu upload, meskipun tes berhasil/gagal
