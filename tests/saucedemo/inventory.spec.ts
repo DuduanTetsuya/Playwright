@@ -1,14 +1,13 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../pages/saucedemo/LoginPage';
 import { InventoryPage } from '../../pages/saucedemo/InventoryPage';
+import { loginAsStandardUser } from '../../helpers/saucedemo/auth.helper';
 
 test.describe('Inventory Tests', () => {
     let inventoryPage: InventoryPage;
 
     test.beforeEach(async ({ page }) => {
-        const loginPage = new LoginPage(page);
         inventoryPage = new InventoryPage(page);
-        await loginPage.goto();
+        await loginAsStandardUser(page);
     });
 
     test('User can add item to cart', async () => {
