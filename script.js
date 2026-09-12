@@ -1,3 +1,5 @@
+const { faker } = require('@faker-js/faker');
+
 class Latihan{
     //Buatlah sebuah fungsi yang dapat menghitung jumlah kata dalam sebuah kalimat.
     // Contoh: Jika kalimat yang diberikan adalah “Halo, nama saya John Doe”, maka hasilnya adalah 5.
@@ -70,6 +72,16 @@ class Latihan{
       }
       return `${username}@example.com`;
     }
+
+    examplefaker(){
+      const candidate = {
+        firstName: faker.person.firstName(),
+        middleName: faker.person.middleName(),
+        lastName: faker.person.lastName(),
+        email: faker.internet.email(),
+      };
+      return candidate;
+    }
   }
   
   const testLatihan = new Latihan();
@@ -79,4 +91,5 @@ class Latihan{
   console.log(testLatihan.PalindromCheck('kasur ini rusak   '));
   console.log(testLatihan.getRandomItems(["January", "February", "March", "April", "May", "June", "July"]));
   console.log(testLatihan.randomUsername());
+  console.log(testLatihan.examplefaker());
   //testLatihan.FizzBuzz();
