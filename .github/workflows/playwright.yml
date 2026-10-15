@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       test_path:
-        description: 'Test path. Default: tests/saucedemo'
+        description: 'Test path. Default: tests/ui/saucedemo'
         required: false
-        default: 'tests/saucedemo'
+        default: 'tests/ui/saucedemo'
         type: string
 jobs:
   test:
@@ -20,7 +20,7 @@ jobs:
       SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
       ORANGEHRM_USERNAME: ${{ secrets.ORANGEHRM_USERNAME }}
       ORANGEHRM_PASSWORD: ${{ secrets.ORANGEHRM_PASSWORD }}
-      TEST_PATH: ${{ inputs.test_path || 'tests/saucedemo' }}
+      TEST_PATH: ${{ inputs.test_path || 'tests/ui/saucedemo' }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4

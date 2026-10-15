@@ -25,6 +25,10 @@ export class LoginPage {
         return this.page.locator(LoginSelectors.errorMessage);
     }
 
+    get errorCloseButton(): Locator {
+        return this.page.locator(LoginSelectors.errorCloseButton);
+    }
+
     async goto() {
         await this.page.goto('https://www.saucedemo.com/');
     }
@@ -35,8 +39,20 @@ export class LoginPage {
         await this.loginButton.click();
     }
 
+    async dismissError() {
+        await this.errorCloseButton.click();
+    }
+
     // Assertions
+    async verifyPasswordIsMasked() {
+        await expect(this.passwordInput).toHaveAttribute('type', 'password');
+    }
+
     async verifyErrorMessage(expectedMessage: string) {
         await expect(this.errorMessage).toContainText(expectedMessage);
+    }
+
+    async verifyErrorDismissed() {
+        await expect(this.errorMessage).toBeHidden();
     }
 }

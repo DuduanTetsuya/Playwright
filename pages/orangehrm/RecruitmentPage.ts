@@ -16,6 +16,10 @@ export class RecruitmentPage {
         await this.page.locator(RecruitmentSelectors.firstNameInput).fill(firstName);
         await this.page.locator(RecruitmentSelectors.lastNameInput).fill(lastName);
         await this.page.locator(RecruitmentSelectors.emailInput).first().fill(email);
+        await this.saveCandidate();
+    }
+
+    async saveCandidate() {
         await this.page.locator(RecruitmentSelectors.saveButton).click();
     }
 
@@ -23,8 +27,13 @@ export class RecruitmentPage {
         await expect(this.page.locator(RecruitmentSelectors.successToast).first()).toBeVisible({ timeout: 10000 });
     }
 
-    async verifyApplicationStageLoaded() {
-        await expect(this.page.locator('h6:has-text("Application Stage")').first()).toBeVisible({ timeout: 10000 });
+    async verifyCandidateSaved() {
+        await expect(this.page.locator(RecruitmentSelectors.successToast).first()).toContainText('Successfully Saved', { timeout: 10000 });
+    }
+
+    async verifyRequiredFieldErrors() {
+        const errors = this.page.locator('.oxd-input-field-error-message');
+        await expect(errors.first()).toHaveText('Required');
+        await expect(errors.nth(1)).toHaveText('Required');
     }
 }
-

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { SideMenuPage } from '../../pages/orangehrm/SideMenuPage';
-import { LeavePage } from '../../pages/orangehrm/LeavePage';
-import { OrangeHRMLoginPage } from '../../pages/orangehrm/LoginPage';
+import { SideMenuPage } from '../../../pages/orangehrm/SideMenuPage';
+import { LeavePage } from '../../../pages/orangehrm/LeavePage';
+import { OrangeHRMLoginPage } from '../../../pages/orangehrm/LoginPage';
 
 test.describe('OrangeHRM Leave Module Tests', () => {
     let sideMenuPage: SideMenuPage;
@@ -20,5 +20,9 @@ test.describe('OrangeHRM Leave Module Tests', () => {
         await leavePage.goToLeaveList();
         await leavePage.verifyLeaveListLoaded();
     });
-});
 
+    test('User can open the Apply Leave page', async () => {
+        await leavePage.goToApplyLeave();
+        await leavePage.verifyApplyLeavePageLoaded();
+    });
+});

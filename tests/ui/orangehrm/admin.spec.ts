@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { SideMenuPage } from '../../pages/orangehrm/SideMenuPage';
-import { AdminPage } from '../../pages/orangehrm/AdminPage';
-import { OrangeHRMLoginPage } from '../../pages/orangehrm/LoginPage';
+import { SideMenuPage } from '../../../pages/orangehrm/SideMenuPage';
+import { AdminPage } from '../../../pages/orangehrm/AdminPage';
+import { OrangeHRMLoginPage } from '../../../pages/orangehrm/LoginPage';
 
 test.describe('OrangeHRM Admin Module Tests', () => {
     let sideMenuPage: SideMenuPage;
@@ -20,5 +20,9 @@ test.describe('OrangeHRM Admin Module Tests', () => {
         await adminPage.searchUser('Admin');
         await adminPage.verifyRecordFound();
     });
-});
 
+    test('User sees no records when searching for a nonexistent username', async () => {
+        await adminPage.searchUser(`missing-user-${Date.now()}`);
+        await adminPage.verifyNoRecordsFound();
+    });
+});

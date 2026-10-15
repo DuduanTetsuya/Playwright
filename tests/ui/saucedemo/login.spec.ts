@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../pages/saucedemo/LoginPage';
-import { InventoryPage } from '../../pages/saucedemo/InventoryPage';
+import { LoginPage } from '../../../pages/saucedemo/LoginPage';
+import { InventoryPage } from '../../../pages/saucedemo/InventoryPage';
 
 test.describe('Login Tests', () => {
     let loginPage: LoginPage;
@@ -36,5 +36,16 @@ test.describe('Login Tests', () => {
         await loginPage.login(process.env.SAUCEDEMO_USERNAME!, '');
         await loginPage.verifyErrorMessage('Epic sadface: Password is required');
     });
-});
 
+    test('Password field masks entered credentials', async () => {
+        await loginPage.passwordInput.fill('secret_sauce');
+        await loginPage.verifyPasswordIsMasked();
+    });
+
+    test('User can dismiss a login error message', async () => {
+        await loginPage.login('invalid_user', 'wrong_password');
+        await loginPage.verifyErrorMessage('Epic sadface: Username and password do not match any user in this service');
+        await loginPage.dismissError();
+        await loginPage.verifyErrorDismissed();
+    });
+});

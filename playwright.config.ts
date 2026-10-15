@@ -15,7 +15,7 @@ export default defineConfig({
   testDir: './tests',
   globalSetup: './global-setup.ts',
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -23,7 +23,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 2 : 4,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: 'list',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -51,7 +51,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         storageState: './playwright/.auth/saucedemo.json',
       },
-      testMatch: /.*\/saucedemo\/(inventory|checkout)\.spec\.ts/,
+      testMatch: /.*\/saucedemo\/(inventory|cart|checkout)\.spec\.ts/,
     },
     {
       name: 'chromium-orangehrm',
@@ -59,6 +59,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         storageState: './playwright/.auth/orangehrm.json',
       },
+      workers: 2,
       testMatch: /.*\/orangehrm\/(admin|leave|pim|recruitment)\.spec\.ts/,
     },
 

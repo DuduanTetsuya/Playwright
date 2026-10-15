@@ -3,6 +3,7 @@ export const PimSelectors = {
     employeeListTab: 'a:has-text("Employee List")',
     firstNameInput: 'input[name="firstName"]',
     lastNameInput: 'input[name="lastName"]',
+    employeeIdInput: '.oxd-input-group:has-text("Employee Id") input',
     saveButton: 'button[type="submit"]',
     employeeNameSearchInput: 'label:has-text("Employee Name") >> xpath=../../..//input',
     searchButton: 'button[type="submit"]',
@@ -11,4 +12,3 @@ export const PimSelectors = {
     deleteButton: '.oxd-table-cell-actions button i.bi-trash',
     confirmDeleteButton: 'button:has-text("Yes, Delete")'
 };
-

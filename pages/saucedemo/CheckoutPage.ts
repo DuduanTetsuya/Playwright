@@ -14,9 +14,15 @@ export class CheckoutPage {
     get continueButton(): Locator { return this.page.locator(CheckoutSelectors.continueButton); }
     get finishButton(): Locator { return this.page.locator(CheckoutSelectors.finishButton); }
     get backHomeButton(): Locator { return this.page.locator(CheckoutSelectors.backHomeButton); }
+    get cancelButton(): Locator { return this.page.locator(CheckoutSelectors.cancelButton); }
     get errorMessage(): Locator { return this.page.locator(CheckoutSelectors.errorMessage); }
     get completeHeader(): Locator { return this.page.locator(CheckoutSelectors.completeHeader); }
     get errorIcons(): Locator { return this.page.locator(CheckoutSelectors.errorIcon); }
+    get subtotal(): Locator { return this.page.locator(CheckoutSelectors.subtotal); }
+    get tax(): Locator { return this.page.locator(CheckoutSelectors.tax); }
+    get total(): Locator { return this.page.locator(CheckoutSelectors.total); }
+    get paymentInformation(): Locator { return this.page.locator(CheckoutSelectors.paymentInformation).nth(0); }
+    get shippingInformation(): Locator { return this.page.locator(CheckoutSelectors.shippingInformation).nth(1); }
 
     async fillInformation(firstName: string, lastName: string, postalCode: string) {
         await this.firstNameInput.fill(firstName);
@@ -42,6 +48,10 @@ export class CheckoutPage {
         await this.backHomeButton.click();
     }
 
+    async clickCancel() {
+        await this.cancelButton.click();
+    }
+
     async verifyErrorMessage(message: string) {
         await expect(this.errorMessage).toContainText(message);
     }
@@ -54,5 +64,10 @@ export class CheckoutPage {
     async verifyOrderCompleted() {
         await expect(this.completeHeader).toHaveText('Thank you for your order!');
     }
-}
 
+    async verifyOrderSummary(subtotal: string, tax: string, total: string) {
+        await expect(this.subtotal).toHaveText(`Item total: ${subtotal}`);
+        await expect(this.tax).toHaveText(`Tax: ${tax}`);
+        await expect(this.total).toHaveText(`Total: ${total}`);
+    }
+}

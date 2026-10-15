@@ -25,11 +25,10 @@ export class OrangeHRMLoginPage {
     }
 
     async verifyDashboardLoaded() {
-        await expect(this.dashboardHeader).toHaveText('Dashboard');
+        await expect(this.dashboardHeader).toHaveText('Dashboard', { timeout: 15000 });
     }
 
     async verifyErrorMessage(message: string) {
         await expect(this.errorMessage).toContainText(message);
     }
 }
-

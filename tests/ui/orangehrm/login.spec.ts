@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { OrangeHRMLoginPage } from '../../pages/orangehrm/LoginPage';
+import { OrangeHRMLoginPage } from '../../../pages/orangehrm/LoginPage';
 
 test.describe('OrangeHRM Login Tests', () => {
     let loginPage: OrangeHRMLoginPage;
