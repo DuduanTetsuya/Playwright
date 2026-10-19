@@ -1,13 +1,21 @@
-
-# Playwright
+# Dependencies
 node_modules/
+
+# Playwright output
 /test-results/
 /playwright-report/
+/playwright-report.json
 /blob-report/
 /playwright/.cache/
-
-# Playwright
 /playwright/.auth/
+
+# Environment
 .env
 .env.*
 !.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
