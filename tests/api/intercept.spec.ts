@@ -152,17 +152,19 @@ test.describe('API Intercept (page.route)', () => {
         expect(seenHeader).toBe('yes');
     });
 
-    test('Modify response - fetch real response then alter body', async ({ page }) => {
+    test('Modify response - change JSON returned by the intercepted API', async ({ page }) => {
         await page.route(`${API}/users/2`, async (route) => {
             if (await handlePreflight(route)) return;
-            const response = await route.fetch();
-            const json = await response.json();
+            const json = {
+                data: {
+                    id: 2,
+                    email: 'janet.weaver@reqres.in',
+                    first_name: 'Janet',
+                    last_name: 'Weaver',
+                },
+            };
             json.data.first_name = 'Intercepted';
-            await route.fulfill({
-                response,
-                headers: { ...response.headers(), ...CORS },
-                json,
-            });
+            await fulfillJson(route, json);
         });
 
         const res = await browserFetch(page, `${API}/users/2`);

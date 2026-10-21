@@ -6,6 +6,8 @@ Reusable scenario data for SauceDemo and OrangeHRM login tests and SauceDemo che
 
 The successful SauceDemo login, successful OrangeHRM login, and Reqres user-list tests are tagged `@smoke`. The `daily-smoke.yml` workflow runs these smoke tests daily at 07:00 UTC+7. The `run-selection.yml` workflow supports running all tests, API, UI, either UI application, or a custom test path with 1–5 workers. Both workflows upload HTML and JSON reports and send the result to Slack; configure the repository Actions secret `SLACK_WEBHOOK_URL` to enable delivery.
 
+The Reqres API contract scenarios use deterministic Playwright route mocks, so they do not depend on the live service or its HTTP 429 rate limits. They still verify the browser's request method, payload, and response handling. The separate `API Intercept` examples demonstrate both mocked responses and interception behavior. The `ui-sharding.yml` workflow demonstrates splitting only `tests/ui` into two parallel shards and merges their reports before uploading and sending the result to Slack.
+
 | Suite | Test count |
 |---|---:|
 | SauceDemo UI | 31 |

@@ -1,0 +1,105 @@
+name: Shard Playwright UI Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ui-tests:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    env:
+      SAUCEDEMO_USERNAME: ${{ secrets.SAUCEDEMO_USERNAME }}
+      SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
+      ORANGEHRM_USERNAME: ${{ secrets.ORANGEHRM_USERNAME }}
+      ORANGEHRM_PASSWORD: ${{ secrets.ORANGEHRM_PASSWORD }}
+      SHARD: ${{ matrix.shard }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run UI shard
+        run: npx playwright test tests/ui --fully-parallel --shard=${{ matrix.shard }}/2 --workers=2 --reporter=blob
+
+      - name: Upload shard report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-blob-report-${{ matrix.shard }}
+          path: blob-report/
+          retention-days: 1
+          if-no-files-found: ignore
+
+  merge-reports:
+    if: always()
+    needs: ui-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download shard reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ui-blob-report-*
+          path: all-blob-reports
+          merge-multiple: true
+
+      - name: Merge shard reports into JSON
+        id: merge-json
+        if: hashFiles('all-blob-reports/*.zip') != ''
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: playwright-report.json
+        run: npx playwright merge-reports --reporter=json all-blob-reports
+
+      - name: Merge shard reports into HTML
+        if: always() && hashFiles('all-blob-reports/*.zip') != ''
+        env:
+          PLAYWRIGHT_HTML_OUTPUT_DIR: playwright-report
+        run: npx playwright merge-reports --reporter=html all-blob-reports
+
+      - name: Upload merged JSON report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-sharding-json-report
+          path: playwright-report.json
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Upload merged HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-sharding-html-report
+          path: playwright-report/
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Send merged report to Slack
+        if: always() && steps.merge-json.outcome == 'success'
+        run: node slack-playwright-report.js
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          REPORT_SOURCE: GitHub Actions - UI Sharding
