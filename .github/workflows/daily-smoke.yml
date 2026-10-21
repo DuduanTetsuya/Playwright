@@ -30,7 +30,19 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run smoke tests
-        run: npx playwright test --grep @smoke --workers 2 --reporter=list,html
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: playwright-report.json
+          REPORT_SOURCE: GitHub Actions - Daily Smoke
+        run: npx playwright test --grep @smoke --workers 2 --reporter=list,html,json
+
+      - name: Upload Playwright JSON report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-smoke-json-report
+          path: playwright-report.json
+          retention-days: 30
+          if-no-files-found: ignore
 
       - name: Upload Playwright HTML report
         if: always()
@@ -40,3 +52,10 @@ jobs:
           path: playwright-report/
           retention-days: 30
           if-no-files-found: ignore
+
+      - name: Send report to Slack
+        if: always()
+        run: node slack-playwright-report.js
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          REPORT_SOURCE: GitHub Actions - Daily Smoke

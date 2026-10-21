@@ -7,16 +7,16 @@ on:
         description: Test suite to run
         required: true
         type: choice
-        default: default
+        default: All
         options:
-          - default
+          - All
           - API
           - UI
           - UI - OrangeHRM
           - UI - SauceDemo
-          - path
+          - Write path manually
       test_path:
-        description: Custom test path (used only when selection is path)
+        description: Custom test path (used only when selection is Write path manually)
         required: false
         type: string
       workers:
@@ -63,14 +63,14 @@ jobs:
         shell: bash
         run: |
           case "$SELECTION" in
-            default) TARGET="tests" ;;
+            All) TARGET="tests" ;;
             API) TARGET="tests/api" ;;
             UI) TARGET="tests/ui" ;;
             "UI - OrangeHRM") TARGET="tests/ui/orangehrm" ;;
             "UI - SauceDemo") TARGET="tests/ui/saucedemo" ;;
-            path)
+            "Write path manually")
               if [[ -z "$CUSTOM_TEST_PATH" ]]; then
-                echo "A custom test path is required when selection is 'path'." >&2
+                echo "A custom test path is required when selection is 'Write path manually'." >&2
                 exit 1
               fi
               TARGET="$CUSTOM_TEST_PATH"
@@ -85,7 +85,18 @@ jobs:
       - name: Run selected tests
         env:
           TARGET_PATH: ${{ steps.target.outputs.path }}
-        run: npx playwright test "$TARGET_PATH" --workers "$WORKERS" --reporter=list,html
+          PLAYWRIGHT_JSON_OUTPUT_NAME: playwright-report.json
+          REPORT_SOURCE: GitHub Actions - Run Selection
+        run: npx playwright test "$TARGET_PATH" --workers "$WORKERS" --reporter=list,html,json
+
+      - name: Upload Playwright JSON report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-json-report
+          path: playwright-report.json
+          retention-days: 30
+          if-no-files-found: ignore
 
       - name: Upload Playwright HTML report
         if: always()
@@ -95,3 +106,10 @@ jobs:
           path: playwright-report/
           retention-days: 30
           if-no-files-found: ignore
+
+      - name: Send report to Slack
+        if: always()
+        run: node slack-playwright-report.js
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          REPORT_SOURCE: GitHub Actions - Run Selection

@@ -39,7 +39,10 @@ const browserFetch = (page: Page, url: string, init?: RequestInit) =>
 
 test.describe('API Intercept (page.route)', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('https://example.com');
+        await page.route('https://playwright.test/**', (route) =>
+            route.fulfill({ contentType: 'text/html', body: '<!doctype html><html><body></body></html>' })
+        );
+        await page.goto('https://playwright.test/');
     });
 
     test('Mock GET - fulfill users list with custom data', async ({ page }) => {
@@ -225,6 +228,24 @@ test.describe('API Intercept (page.route)', () => {
 
     test('Block resources - abort images/fonts/media, continue the rest', async ({ page }) => {
         const blocked: string[] = [];
+        const pageHtml = `
+            <!doctype html>
+            <html>
+              <head>
+                <style>
+                  @font-face {
+                    font-family: "InterceptedFont";
+                    src: url("https://playwright.test/test.woff2") format("woff2");
+                  }
+                  h1 { font-family: "InterceptedFont"; }
+                </style>
+              </head>
+              <body>
+                <h1>Resource blocking works</h1>
+                <img src="https://playwright.test/test.png" alt="test image">
+                <video autoplay muted preload="auto" src="https://playwright.test/test.mp4"></video>
+              </body>
+            </html>`;
 
         await page.route('**/*', (route) => {
             const type = route.request().resourceType();
@@ -232,11 +253,15 @@ test.describe('API Intercept (page.route)', () => {
                 blocked.push(type);
                 return route.abort();
             }
+            if (type === 'document') {
+                return route.fulfill({ contentType: 'text/html', body: pageHtml });
+            }
             return route.continue();
         });
 
-        await page.goto('https://example.com');
-        await expect(page.locator('h1')).toHaveText('Example Domain');
-        expect(blocked.every((t) => ['image', 'font', 'media'].includes(t))).toBe(true);
+        await page.goto('https://playwright.test/resources');
+        await expect(page.locator('h1')).toHaveText('Resource blocking works');
+        await page.evaluate(() => document.fonts.ready);
+        await expect.poll(() => [...new Set(blocked)].sort()).toEqual(['font', 'image', 'media']);
     });
 });

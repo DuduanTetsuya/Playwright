@@ -15,7 +15,9 @@ export class OrangeHRMLoginPage {
     get dashboardHeader(): Locator { return this.page.locator(OrangeHRMLoginSelectors.dashboardHeader); }
 
     async goto() {
-        await this.page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+        await this.page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login', {
+            waitUntil: 'domcontentloaded',
+        });
     }
 
     async login(username: string, password: string) {

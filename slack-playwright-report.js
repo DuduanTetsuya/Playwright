@@ -3,6 +3,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
+const REPORT_SOURCE = process.env.REPORT_SOURCE || "Local";
 
 if (!SLACK_WEBHOOK_URL) {
   console.error("❌ SLACK_WEBHOOK_URL tidak ditemukan di environment.");
@@ -108,7 +109,7 @@ try {
 }
 
 // Format pesan Slack
-const message = `:performing_arts: *Playwright Test Report from Local* :rocket:
+const message = `:performing_arts: *Playwright Test Report from ${REPORT_SOURCE}* :rocket:
 
 *Summary*
 Total Tests: ${totalTests}
