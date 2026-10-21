@@ -12,8 +12,9 @@ The Reqres API contract scenarios use deterministic Playwright route mocks, so t
 |---|---:|
 | SauceDemo UI | 31 |
 | OrangeHRM UI | 11 |
-| Reqres API | 15 |
-| **Total** | **57** |
+| Reqres API and network interception | 15 |
+| API interception | 11 |
+| **Total** | **68** |
 
 ## SauceDemo UI
 
@@ -106,9 +107,11 @@ The Reqres API contract scenarios use deterministic Playwright route mocks, so t
 | User can add a new job candidate | A candidate with unique details can be saved successfully. |
 | User sees required-field errors when candidate details are missing | Saving an empty candidate form shows required-field validation errors. |
 
-## Reqres API
+## API tests
 
-### Users — `tests/api/reqres.spec.ts`
+### Reqres API contract — `tests/api/reqres.spec.ts`
+
+These tests use deterministic Playwright route mocks; they exercise browser requests and response handling without sending traffic to the live Reqres service.
 
 | Test | What it verifies |
 |---|---|
@@ -127,8 +130,24 @@ The Reqres API contract scenarios use deterministic Playwright route mocks, so t
 | PATCH - Update only the provided user field | A partial update returns HTTP 200 with the changed field and an update timestamp. |
 | DELETE - Delete user | The delete endpoint returns HTTP 204. |
 
-### Network interception — `tests/api/reqres-network.spec.ts`
+### Browser network interception — `tests/api/reqres-network.spec.ts`
 
 | Test | What it verifies |
 |---|---|
 | Intercept a browser API request and return a mocked user response | Playwright intercepts a browser `fetch`, validates the outgoing method and URL, and returns a deterministic mocked JSON response without calling the live endpoint. |
+
+### API interception techniques — `tests/api/intercept.spec.ts`
+
+| Test | What it verifies |
+|---|---|
+| Mock GET - fulfill users list with custom data | Returns a controlled user list from an intercepted GET request. |
+| Mock error - simulate 500 Internal Server Error | Simulates a server error response. |
+| Mock error - simulate 404 Not Found | Simulates a not-found response. |
+| Abort request - simulate network failure | Aborts a request and verifies the browser reports a network failure. |
+| Capture request - verify POST payload and headers sent | Captures and verifies the POST method, JSON payload, and content type. |
+| Modify request - inject header via route.fallback chain | Adds a custom header in one route handler and verifies it in another. |
+| Modify response - change JSON returned by the intercepted API | Changes the JSON body returned by an intercepted request. |
+| Delay response - simulate slow API | Delays a mocked response and verifies the elapsed time. |
+| Wait for response - waitForResponse on intercepted call | Waits for and validates a mocked browser response. |
+| Unroute - mock is removed after page.unroute | Removes a route handler and verifies a subsequent handler can respond. |
+| Block resources - abort images/fonts/media, continue the rest | Blocks image, font, and media requests while verifying the document still loads. |

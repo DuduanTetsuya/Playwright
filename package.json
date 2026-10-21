@@ -5,6 +5,9 @@
     "@types/node": "^22.13.8"
   },
   "scripts": {
+    "test:saucedemo": "playwright test tests/ui/saucedemo",
+    "test:orangehrm": "playwright test tests/ui/orangehrm",
+    "test:api": "playwright test tests/api",
     "test:json": "npx playwright test --reporter=json > playwright-report.json"
   },
   "dependencies": {
