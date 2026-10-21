@@ -6,8 +6,8 @@ This catalog describes the automated test coverage in this repository.
 |---|---:|
 | SauceDemo UI | 31 |
 | OrangeHRM UI | 11 |
-| Reqres API | 5 |
-| **Total** | **47** |
+| Reqres API | 15 |
+| **Total** | **57** |
 
 ## SauceDemo UI
 
@@ -108,6 +108,21 @@ This catalog describes the automated test coverage in this repository.
 |---|---|
 | GET - Get list of users | The users endpoint returns HTTP 200, the requested page number, and a non-empty user list. |
 | GET - Get single user | The single-user endpoint returns HTTP 200 and the expected user ID and first name. |
+| GET - Get first page with pagination metadata and unique users | Page size, pagination metadata, JSON content type, unique user IDs, and the first user's fields are correct. |
+| GET - Return not found for a user that does not exist | A missing user returns HTTP 404 with an empty JSON object. |
+| GET - Get a paginated list of colors | The resources endpoint returns page two and the expected first color. |
+| GET - Get a single color resource | The resource endpoint returns the expected color details. |
+| GET - Return not found for an unknown resource | A missing resource returns HTTP 404 with an empty JSON object. |
+| POST - Login successfully with valid credentials | Valid sample credentials return HTTP 200 and an authentication token. |
+| POST - Reject login when password is missing | Login without a password returns HTTP 400. |
+| POST - Reject registration when password is missing | Registration without a password returns HTTP 400. |
 | POST - Create new user | The create endpoint returns HTTP 201 and echoes the submitted name and job with an ID and creation timestamp. |
 | PUT - Update user data | The update endpoint returns HTTP 200 and the updated job with an update timestamp. |
+| PATCH - Update only the provided user field | A partial update returns HTTP 200 with the changed field and an update timestamp. |
 | DELETE - Delete user | The delete endpoint returns HTTP 204. |
+
+### Network interception — `tests/api/reqres-network.spec.ts`
+
+| Test | What it verifies |
+|---|---|
+| Intercept a browser API request and return a mocked user response | Playwright intercepts a browser `fetch`, validates the outgoing method and URL, and returns a deterministic mocked JSON response without calling the live endpoint. |
