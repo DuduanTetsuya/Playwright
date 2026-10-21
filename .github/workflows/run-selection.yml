@@ -1,0 +1,97 @@
+name: Run Playwright Selection
+
+on:
+  workflow_dispatch:
+    inputs:
+      selection:
+        description: Test suite to run
+        required: true
+        type: choice
+        default: default
+        options:
+          - default
+          - API
+          - UI
+          - UI - OrangeHRM
+          - UI - SauceDemo
+          - path
+      test_path:
+        description: Custom test path (used only when selection is path)
+        required: false
+        type: string
+      workers:
+        description: Number of parallel workers
+        required: true
+        type: choice
+        default: '2'
+        options:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    env:
+      SAUCEDEMO_USERNAME: ${{ secrets.SAUCEDEMO_USERNAME }}
+      SAUCEDEMO_PASSWORD: ${{ secrets.SAUCEDEMO_PASSWORD }}
+      ORANGEHRM_USERNAME: ${{ secrets.ORANGEHRM_USERNAME }}
+      ORANGEHRM_PASSWORD: ${{ secrets.ORANGEHRM_PASSWORD }}
+      SELECTION: ${{ inputs.selection }}
+      CUSTOM_TEST_PATH: ${{ inputs.test_path }}
+      WORKERS: ${{ inputs.workers }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Select test target
+        id: target
+        shell: bash
+        run: |
+          case "$SELECTION" in
+            default) TARGET="tests" ;;
+            API) TARGET="tests/api" ;;
+            UI) TARGET="tests/ui" ;;
+            "UI - OrangeHRM") TARGET="tests/ui/orangehrm" ;;
+            "UI - SauceDemo") TARGET="tests/ui/saucedemo" ;;
+            path)
+              if [[ -z "$CUSTOM_TEST_PATH" ]]; then
+                echo "A custom test path is required when selection is 'path'." >&2
+                exit 1
+              fi
+              TARGET="$CUSTOM_TEST_PATH"
+              ;;
+            *)
+              echo "Unsupported selection: $SELECTION" >&2
+              exit 1
+              ;;
+          esac
+          echo "path=$TARGET" >> "$GITHUB_OUTPUT"
+
+      - name: Run selected tests
+        env:
+          TARGET_PATH: ${{ steps.target.outputs.path }}
+        run: npx playwright test "$TARGET_PATH" --workers "$WORKERS" --reporter=list,html
+
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+          if-no-files-found: ignore

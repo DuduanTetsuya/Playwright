@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/saucedemo/LoginPage';
 import { InventoryPage } from '../../../pages/saucedemo/InventoryPage';
+import { sauceDemoInvalidCredentials, sauceDemoLoginFailureCases } from '../../../testdata/saucedemo-login.data';
 
 test.describe('Login Tests', () => {
     let loginPage: LoginPage;
@@ -12,25 +13,17 @@ test.describe('Login Tests', () => {
         await loginPage.goto();
     });
 
-    test('User can login successfully with valid credentials', async () => {
+    test('User can login successfully with valid credentials', { tag: '@smoke' }, async () => {
         await loginPage.login(process.env.SAUCEDEMO_USERNAME!, process.env.SAUCEDEMO_PASSWORD!);
         await inventoryPage.verifyInventoryPageLoaded();
     });
 
-    test('User should not able to login with locked out user', async () => {
-        await loginPage.login('locked_out_user', 'secret_sauce');
-        await loginPage.verifyErrorMessage('Epic sadface: Sorry, this user has been locked out.');
-    });
-
-    test('User should not able to login with invalid credentials', async () => {
-        await loginPage.login('invalid_user', 'wrong_password');
-        await loginPage.verifyErrorMessage('Epic sadface: Username and password do not match any user in this service');
-    });
-
-    test('User should not able to login with empty username', async () => {
-        await loginPage.login('', 'secret_sauce');
-        await loginPage.verifyErrorMessage('Epic sadface: Username is required');
-    });
+    for (const loginCase of sauceDemoLoginFailureCases) {
+        test(loginCase.name, async () => {
+            await loginPage.login(loginCase.username, loginCase.password);
+            await loginPage.verifyErrorMessage(loginCase.expectedError);
+        });
+    }
 
     test('User should not able to login with empty password', async () => {
         await loginPage.login(process.env.SAUCEDEMO_USERNAME!, '');
@@ -43,8 +36,8 @@ test.describe('Login Tests', () => {
     });
 
     test('User can dismiss a login error message', async () => {
-        await loginPage.login('invalid_user', 'wrong_password');
-        await loginPage.verifyErrorMessage('Epic sadface: Username and password do not match any user in this service');
+        await loginPage.login(sauceDemoInvalidCredentials.username, sauceDemoInvalidCredentials.password);
+        await loginPage.verifyErrorMessage(sauceDemoInvalidCredentials.expectedError);
         await loginPage.dismissError();
         await loginPage.verifyErrorDismissed();
     });

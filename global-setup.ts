@@ -9,9 +9,18 @@ async function globalSetup(_config: FullConfig) {
     const authDirectory = path.resolve(__dirname, 'playwright/.auth');
     fs.mkdirSync(authDirectory, { recursive: true });
 
-    const requestedArguments = process.argv.slice(2).join(' ').toLowerCase();
+    const requestedArguments = process.argv.slice(2).join(' ').toLowerCase().replace(/\\/g, '/');
     const requestsSauceDemo = requestedArguments.includes('saucedemo');
     const requestsOrangeHrm = requestedArguments.includes('orangehrm');
+    const requestsApiOnly = requestedArguments.includes('tests/api')
+        && !requestedArguments.includes('tests/ui')
+        && !requestsSauceDemo
+        && !requestsOrangeHrm;
+
+    if (requestsApiOnly) {
+        return;
+    }
+
     const setupSauceDemo = !requestsOrangeHrm || requestsSauceDemo;
     const setupOrangeHrm = !requestsSauceDemo || requestsOrangeHrm;
 

@@ -2,6 +2,10 @@
 
 This catalog describes the automated test coverage in this repository.
 
+Reusable scenario data for SauceDemo and OrangeHRM login tests and SauceDemo checkout validation is stored in `testdata/` and imported by the corresponding specs.
+
+The successful SauceDemo login, successful OrangeHRM login, and Reqres user-list tests are tagged `@smoke`. The `daily-smoke.yml` workflow runs these smoke tests daily at 07:00 UTC+7. The `run-selection.yml` workflow supports running all tests, API, UI, either UI application, or a custom test path with 1–5 workers.
+
 | Suite | Test count |
 |---|---:|
 | SauceDemo UI | 31 |

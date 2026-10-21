@@ -59,7 +59,6 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         storageState: './playwright/.auth/orangehrm.json',
       },
-      workers: 2,
       testMatch: /.*\/orangehrm\/(admin|leave|pim|recruitment)\.spec\.ts/,
     },
 

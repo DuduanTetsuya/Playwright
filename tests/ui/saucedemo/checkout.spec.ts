@@ -3,6 +3,7 @@ import { InventoryPage } from '../../../pages/saucedemo/InventoryPage';
 import { CartPage } from '../../../pages/saucedemo/CartPage';
 import { CheckoutPage } from '../../../pages/saucedemo/CheckoutPage';
 import { loginAsStandardUser } from '../../../helpers/saucedemo/auth.helper';
+import { checkoutValidationCases } from '../../../testdata/checkout-validation.data';
 
 test.describe('Checkout Tests', () => {
     let inventoryPage: InventoryPage;
@@ -23,24 +24,21 @@ test.describe('Checkout Tests', () => {
         await cartPage.clickCheckout();
     }
 
-    test('Checkout requires a first name', async () => {
-        await checkoutPage.clickContinue();
-        await checkoutPage.verifyErrorMessage('Error: First Name is required');
-        await checkoutPage.verifyErrorIconsVisible(3);
-    });
+    for (const validationCase of checkoutValidationCases) {
+        test(`Checkout requires ${validationCase.name}`, async () => {
+            await checkoutPage.fillInformation(
+                validationCase.firstName,
+                validationCase.lastName,
+                validationCase.postalCode
+            );
+            await checkoutPage.clickContinue();
+            await checkoutPage.verifyErrorMessage(validationCase.expectedError);
 
-    test('Checkout requires a last name after first name is provided', async () => {
-        await checkoutPage.fillInformation('John', '', '');
-        await checkoutPage.clickContinue();
-        await checkoutPage.verifyErrorMessage('Error: Last Name is required');
-    });
-
-    test('Checkout requires a postal code after names are provided', async () => {
-        await checkoutPage.fillInformation('John', 'Doe', '');
-        await checkoutPage.clickContinue();
-        await checkoutPage.verifyErrorMessage('Error: Postal Code is required');
-        await checkoutPage.verifyErrorIconsVisible(3);
-    });
+            if (validationCase.expectedErrorIcons) {
+                await checkoutPage.verifyErrorIconsVisible(validationCase.expectedErrorIcons);
+            }
+        });
+    }
 
     test('User can cancel checkout information and return to the cart', async () => {
         await checkoutPage.clickCancel();

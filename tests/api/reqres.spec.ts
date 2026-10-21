@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('API Testing Reqres.in', () => {
     const baseURL = 'https://reqres.in/api';
 
-    test('GET - Get list of users', async ({ request }) => {
+    test('GET - Get list of users', { tag: '@smoke' }, async ({ request }) => {
         const response = await request.get(`${baseURL}/users?page=2`);
         expect(response.status()).toBe(200);
         
